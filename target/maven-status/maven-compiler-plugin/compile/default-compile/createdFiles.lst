@@ -1,0 +1,15 @@
+com/vineet/learn/domain/Product$ProductBuilder.class
+com/vineet/learn/service/ProductService.class
+com/vineet/learn/service/ReviewService.class
+com/vineet/learn/util/CommonUtil.class
+com/vineet/learn/domain/ProductOption.class
+com/vineet/learn/domain/Inventory$InventoryBuilder.class
+com/vineet/learn/util/LoggerUtil.class
+com/vineet/learn/domain/Product.class
+com/vineet/learn/domain/Inventory.class
+com/vineet/learn/service/ProductInfoService.class
+com/vineet/learn/domain/ProductInfo.class
+com/vineet/learn/domain/Review$ReviewBuilder.class
+com/vineet/learn/domain/Review.class
+com/vineet/learn/domain/ProductInfo$ProductInfoBuilder.class
+com/vineet/learn/domain/ProductOption$ProductOptionBuilder.class
