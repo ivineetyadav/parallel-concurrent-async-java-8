@@ -6,20 +6,29 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.vineet.learn.domain.checkout.Cart;
+import com.vineet.learn.domain.checkout.CartItem;
+
 public class DataSet {
 
     public static List<String> lowerCaseAlphabetList = List.of("a", "b", "c", "a", "d", "e", "f", "e", "g", "h", "i");
 
-	/*
-	 * public static Cart createCart(int noOfItemsInCart) {
-	 * 
-	 * Cart cart = new Cart(); List<CartItem> cartItemList = new ArrayList<>();
-	 * IntStream.rangeClosed(1, noOfItemsInCart) .forEach((index) -> { String
-	 * cartItem = "CartItem -".concat(index + ""); CartItem cartItem1 = new
-	 * CartItem(index, cartItem, generateRandomPrice(), index, false);
-	 * cartItemList.add(cartItem1); }); cart.setCartItemList(cartItemList); return
-	 * cart; }
-	 */
+	
+    public static Cart createCart(int noOfItemsInCart) {
+	  
+	  Cart cart = new Cart(); 
+	  List<CartItem> cartItemList = new ArrayList<>();
+	  
+	  IntStream.rangeClosed(1, noOfItemsInCart) 
+	  	.forEach((index) -> { 
+	  		String cartItem = "CartItem -".concat(index + ""); 
+	  		CartItem cartItem1 = new CartItem(index, cartItem, generateRandomPrice(), index, false);
+	  		cartItemList.add(cartItem1); 
+	  		}); 
+	  cart.setCartItemList(cartItemList); 
+	  		return cart; 
+    }
+	 
 
     public static List<String> namesList() {
         return List.of("Bob", "Jamie", "Jill", "Rick");
