@@ -2,6 +2,8 @@ package com.vineet.learn.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.concurrent.ForkJoinPool;
+
 import org.junit.jupiter.api.Test;
 
 import com.vineet.learn.domain.checkout.Cart;
@@ -32,6 +34,19 @@ public class CheckoutServiceTest {
 		CheckoutResponse checkoutResponse = checkoutService.checkout(cart);
 		
 		assertEquals(CheckoutStatus.FAILURE, checkoutResponse.getCheckoutStatus());
+	}
+	
+
+	@Test
+	void modify_parallelism() {
+		
+		System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "100");
+		Cart cart = DataSet.createCart(100);
+		
+		CheckoutResponse checkoutResponse = checkoutService.checkout(cart);
+		
+		assertEquals(CheckoutStatus.FAILURE, checkoutResponse.getCheckoutStatus());
+		System.out.print("parallelism : " + ForkJoinPool.getCommonPoolParallelism());
 	}
 	
 	
