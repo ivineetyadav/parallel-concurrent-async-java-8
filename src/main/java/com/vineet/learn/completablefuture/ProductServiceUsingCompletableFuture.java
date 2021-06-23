@@ -119,10 +119,23 @@ public class ProductServiceUsingCompletableFuture {
     		   });
        
        CompletableFuture<Review> reviewFuture = CompletableFuture
-    		   .supplyAsync(() -> reviewService.retrieveReviews(productId)); 
+    		   .supplyAsync(() -> reviewService.retrieveReviews(productId))
+    		   .exceptionally(ex -> {
+    			  log("Exception in review is : " + ex.getMessage()) ;
+    			  return Review.builder()
+    					  .noOfReviews(0)
+    					  .overallRating(0.0)
+    					  .build();
+    		   }); 
  
        Product product = productInfoFuture.
        				thenCombine(reviewFuture, (productInfo, review) -> new Product(productId, productInfo, review))
+       				.whenComplete((res, ex) -> {
+       					if(ex != null) {
+       						log("Response in whenComplete is : " + res);
+       						log("inside  whenComplete : " + ex);
+       					}
+       				})
        				.join(); //blocking the thread is necessary here because we are returning the combined result
        
        stopWatch.stop();
@@ -136,10 +149,14 @@ public class ProductServiceUsingCompletableFuture {
 				.stream()
 				.map(productOption -> {
 					return CompletableFuture.supplyAsync(() -> inventoryService.retrieveInventory(productOption))
-								.thenApply(inventory -> {
-									productOption.setInventory(inventory);
-									return productOption;
-								});
+							.exceptionally(ex -> {
+								log("Exception in inventory service : " + ex);
+								return Inventory.builder().count(1).build();
+							})
+							.thenApply(inventory -> {
+								productOption.setInventory(inventory);
+								return productOption;
+							});
 					
 				})
 				.collect(Collectors.toList());
@@ -151,13 +168,11 @@ public class ProductServiceUsingCompletableFuture {
     
 
 	public static void main(String[] args) {
-
         ProductInfoService productInfoService = new ProductInfoService();
         ReviewService reviewService = new ReviewService();
         ProductServiceUsingCompletableFuture productService = new ProductServiceUsingCompletableFuture(productInfoService, reviewService);
         String productId = "ABC123";
         Product product = productService.retrieveProductDetails_approach1_for_client_based_app(productId);
         log("Product is " + product);
-
     }
 }

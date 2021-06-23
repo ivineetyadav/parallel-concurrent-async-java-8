@@ -42,6 +42,29 @@ public class CompletableFutureExampleTest {
 		
 	}
 	
+	
+	
+	@Test
+	void helloworld_3_async_calls_with_customthreadpool() {
+		String result = cf.helloworld_3_async_calls_with_customthreadpool();
+		assertEquals("HELLO WORLD! HI THERE!", result);
+		
+	}
+	
+	@Test
+	void helloworld_3_async_calls_with_completionStage_async() {
+		String result = cf.helloworld_3_async_calls_with_completionStage_async();
+		assertEquals("HELLO WORLD! HI THERE!", result);
+		
+	}
+	
+	@Test
+	void helloworld_3_async_calls_with_customthreadpool_completionStage_async() {
+		String result = cf.helloworld_3_async_calls_with_customthreadpool_completionStage_async();
+		assertEquals("HELLO WORLD! HI THERE!", result);
+		
+	}
+	
 	@Test
 	void helloworld_3_async_calls() {
 		String result = cf.helloworld_3_async_calls();
